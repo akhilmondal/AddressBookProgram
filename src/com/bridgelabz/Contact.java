@@ -92,4 +92,18 @@ public class Contact {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", emailId='" + emailId + '\'' +
+                '}';
+    }
 }

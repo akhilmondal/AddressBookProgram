@@ -1,9 +1,12 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
 
+    static Scanner scanner = new Scanner(System.in);
+    ArrayList<Contact> list = new ArrayList<>();
     Contact contact = new Contact();
 
     void addContact() {
@@ -32,9 +35,9 @@ public class AddressBook {
         contact.setZip(zip);
         contact.setPhoneNumber(phoneNumber);
         contact.setEmailId(emailId);
+        list.add(contact);
     }
     public void editContact() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of the contact to edit :");
         String Name = scanner.next();
         if (contact.getFirstName().equalsIgnoreCase(Name)) {
@@ -61,7 +64,6 @@ public class AddressBook {
         }
     }
     public void deleteContact() { //This method is to delete a contact by its first name.
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of the contact to delete the contact :");
         String Name = scanner.next();
         if (contact.getFirstName().equalsIgnoreCase(Name)) {
@@ -74,7 +76,29 @@ public class AddressBook {
             contact.setZip(null);
             contact.setPhoneNumber(null);
             contact.setEmailId(null);
-
+        }
+    }
+    public void addMultipleContact() {
+        System.out.println("Enter firstName: ");
+        String firstName = scanner.next();
+        System.out.println("Enter lastName: ");
+        String lastName = scanner.next();
+        System.out.println("Enter address: ");
+        String address = scanner.next();
+        System.out.println("Enter the city name: ");
+        String city = scanner.next();
+        System.out.println("Enter State name: ");
+        String state = scanner.next();
+        System.out.println("Enter zip code: ");
+        String zip = scanner.next();
+        System.out.println("Enter Phone number: ");
+        String phoneNumber = scanner.next();
+        System.out.println("Enter email id: ");
+        String emailId = scanner.next();
+        Contact contactList = new Contact(firstName, lastName, address, zip, city,state,phoneNumber,emailId);
+        list.add(contactList);
+        for (Contact c: list) {
+            System.out.println(c.toString());
         }
     }
 }
