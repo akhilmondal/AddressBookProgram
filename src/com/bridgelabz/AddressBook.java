@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class AddressBook {
 
     static Scanner scanner = new Scanner(System.in);
-    ArrayList<Contact> list = new ArrayList<>();
+    static ArrayList<Contact> list = new ArrayList<>();
     Contact contact = new Contact();
 
     void addContact() {
@@ -97,8 +97,10 @@ public class AddressBook {
         String emailId = scanner.next();
         Contact contactList = new Contact(firstName, lastName, address, zip, city,state,phoneNumber,emailId);
         list.add(contactList);
-        for (Contact c: list) {
-            System.out.println(c.toString());
+    }
+    public void displayListOfContact () {
+        for (Contact items: list) {
+            System.out.println(items.toString());
         }
     }
 }
