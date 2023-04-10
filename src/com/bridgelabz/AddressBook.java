@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
 
@@ -9,7 +10,6 @@ public class AddressBook {
     static HashMap<String, ArrayList> map = new HashMap<>();
 
     public static void addressBookOperations() {
-        AddressBook addressBookObj = new AddressBook();
         System.out.println("Enter how many addressBook you want to add: ");
         int addressBookNumber = scanner.nextInt();
         for (int i = 1; i <= addressBookNumber; i++) {
@@ -19,12 +19,14 @@ public class AddressBook {
             boolean reRun = true;
             do {
                 System.out.println("Enter the operation number to perform the task. ");
-                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
+                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 6. Search Contact with City \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
                 int select = scanner.nextInt();
                 switch (select) {
                     case 1:  //Add contact to the list
                         System.out.println("Enter the first name of the contact to check whether it is already there in the addressBook :");
                         String name = scanner.next();
+                        // Using stream Api to check for duplicate entrey in the addressbook.
+
                         Optional<Contact> search = list.stream().filter(contact -> contact.getFirstName().equals(name)).findFirst();
                         if (search.isPresent()) {
                             System.out.println("The contact with the same name is already present in the AddressBook: ");
@@ -154,6 +156,14 @@ public class AddressBook {
                             System.out.println(items.toString());
                         }
                         break;
+                    case 6: // To search contact with th same city name.
+                        System.out.println("Enter the city to search for the contact :");
+                        String searchCity = scanner.next();
+                        List<Contact> list1 =list.stream().filter(city_name -> city_name.getCity().equals(searchCity)).collect(Collectors.toList());
+                        for (Contact address : list1) {
+                            System.out.println("The first and Last name of the person : " + address.getFirstName() + " " + address.getLastName());
+                        }
+                        break;
                     case 0:
                         reRun = false;
                     default:
@@ -170,5 +180,8 @@ public class AddressBook {
             ArrayList value = entry.getValue();
             System.out.println(key + " : " + value);
         }
+    }
+    public static void searchContactWithSameCity() {
+
     }
 }
