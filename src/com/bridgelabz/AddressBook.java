@@ -156,11 +156,21 @@ public class AddressBook {
                             System.out.println(items.toString());
                         }
                         break;
-                    case 6: // To search contact with th same city name.
+                    case 6: //Getting the city name with persons name
+                        System.out.println("Enter the person first name : ");
+                        String personName = scanner.next();
+                        List<Contact> list1 = list.stream()
+                                .filter(person_name -> person_name.getFirstName().equals(personName))
+                                .collect(Collectors.toList());
+                        for (Contact address : list1) {
+                            System.out.println("Name of the city is : " + address.getCity());
+                        }
+                        break;
+                    case 7: // To search contact with the same city name.
                         System.out.println("Enter the city to search for the contact :");
                         String searchCity = scanner.next();
-                        List<Contact> list1 =list.stream().filter(city_name -> city_name.getCity().equals(searchCity)).collect(Collectors.toList());
-                        for (Contact address : list1) {
+                        List<Contact> list2 =list.stream().filter(city_name -> city_name.getCity().equals(searchCity)).collect(Collectors.toList());
+                        for (Contact address : list2) {
                             System.out.println("The first and Last name of the person : " + address.getFirstName() + " " + address.getLastName());
                         }
                         break;
@@ -180,8 +190,5 @@ public class AddressBook {
             ArrayList value = entry.getValue();
             System.out.println(key + " : " + value);
         }
-    }
-    public static void searchContactWithSameCity() {
-
     }
 }
