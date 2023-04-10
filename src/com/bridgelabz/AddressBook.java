@@ -19,7 +19,7 @@ public class AddressBook {
             boolean reRun = true;
             do {
                 System.out.println("Enter the operation number to perform the task. ");
-                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 6. Search Contact with City \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
+                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 6. Search City with Contact Name \n 7. Search Contact with City \n 8. Get Phone number and Name by City \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
                 int select = scanner.nextInt();
                 switch (select) {
                     case 1:  //Add contact to the list
@@ -160,8 +160,7 @@ public class AddressBook {
                         System.out.println("Enter the person first name : ");
                         String personName = scanner.next();
                         List<Contact> list1 = list.stream()
-                                .filter(person_name -> person_name.getFirstName().equals(personName))
-                                .collect(Collectors.toList());
+                                .filter(person_name -> person_name.getFirstName().equals(personName)).collect(Collectors.toList());
                         for (Contact address : list1) {
                             System.out.println("Name of the city is : " + address.getCity());
                         }
@@ -172,6 +171,14 @@ public class AddressBook {
                         List<Contact> list2 =list.stream().filter(city_name -> city_name.getCity().equals(searchCity)).collect(Collectors.toList());
                         for (Contact address : list2) {
                             System.out.println("The first and Last name of the person : " + address.getFirstName() + " " + address.getLastName());
+                        }
+                        break;
+                    case 8:  //to get the phone number and First name by city
+                        System.out.println("Enter the city name :");
+                        String cityName = scanner.next();
+                        List<Contact> list3 = list.stream().filter(p_number -> p_number.getCity().equals(cityName)).collect(Collectors.toList());
+                        for (Contact address : list3) {
+                            System.out.println("The person phone number is : " + address.getPhoneNumber() + " and Name : " + address.getFirstName());
                         }
                         break;
                     case 0:
