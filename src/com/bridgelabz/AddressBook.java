@@ -19,7 +19,7 @@ public class AddressBook {
             boolean reRun = true;
             do {
                 System.out.println("Enter the operation number to perform the task. ");
-                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 6. Search City with Contact Name \n 7. Search Contact with City \n 8. Get Phone number and Name by City \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
+                System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n 6. Search City with Contact Name \n 7. Search Contact with City \n 8. Get Phone number and Name by City \n 9. Sort the Addressbook with first name of contacts \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
                 int select = scanner.nextInt();
                 switch (select) {
                     case 1:  //Add contact to the list
@@ -181,6 +181,9 @@ public class AddressBook {
                             System.out.println("The person phone number is : " + address.getPhoneNumber() + " and Name : " + address.getFirstName());
                         }
                         break;
+                    case 9: // To sort all the contacts of the addressbook with their name.
+                        List<String> sortedContacts = list.stream().map(address -> address.getFirstName()).sorted().collect(Collectors.toList());
+                        sortedContacts.forEach(System.out::println);
                     case 0:
                         reRun = false;
                     default:
