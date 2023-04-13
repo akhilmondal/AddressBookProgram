@@ -1,5 +1,9 @@
 package com.bridgelabz;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,7 +24,7 @@ public class AddressBook {
             do {
                 System.out.println("Enter the operation number to perform the task. ");
                 System.out.println(" 1. Add Contact \n 2. Edit Contact \n 3. Delete Contact \n 4. Add Multiple Contact \n 5. Display Contact \n ");
-                System.out.println(" 6. Search City with Contact Name \n 7. Search Contact with City \n 8. Get Phone number and Name by City \n 9. Sort the Addressbook with first name of contacts \n 10. Sort the Addressbook with Zip Code of contacts \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
+                System.out.println(" 6. Search City with Contact Name \n 7. Search Contact with City \n 8. Get Phone number and Name by City \n 9. Sort the Addressbook with first name of contacts \n 10. Sort the Addressbook with Zip Code of contacts \n 11. Add AddressBook to a file \n 12. Display/Read AddressBok From The file \n 0. To terminate the program and add another Addressbook to the Hashmap. \n");
                 int select = scanner.nextInt();
                 switch (select) {
                     case 1:  //Add contact to the list
@@ -190,6 +194,20 @@ public class AddressBook {
                         List<String> sortedZip = list.stream().map(contact -> contact.getZip()).sorted().collect(Collectors.toList());
                         sortedZip.forEach(System.out::println);
                         break;
+                    case 11: // To add contact in a text file.
+                        try {
+                            addContactToFile(list);
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case 12:  // To retrive data from the file
+                        try {
+                            displayRecordsFromTextFile();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
                     case 0:
                         reRun = false;
                     default:
@@ -206,5 +224,20 @@ public class AddressBook {
             ArrayList value = entry.getValue();
             System.out.println(key + " : " + value);
         }
+    }
+    // Here Adding contact details to the text file by using IO stream.
+    public static void addContactToFile(ArrayList<Contact> list) throws IOException {  //This method will right the data to a file.
+        FileWriter filewriter = new FileWriter("/home/akhil/IdeaProjects/AddressBookSystem/AddressBookFile/AddressBook.txt");
+        for (Contact data : list) {
+            filewriter.write(data + System.lineSeparator());  //This line separator method will separate each entry line by line.
+        }
+        filewriter.close();
+    }
+    public static void displayRecordsFromTextFile() throws IOException {  //This method will read data from the file who's path is given.
+        Files.lines(new File("/home/akhil/IdeaProjects/AddressBookSystem/AddressBookFile/AddressBook.txt").toPath()).forEach(System.out::println);
+        /*
+        Files.lines: This is a method from the Files class in Java's standard library that allows you to read the lines of a file as a Stream<String> object.
+        toPath(): This creates a File object representing the "AddressBook.txt" file and converts it to a Path object that can be used by the Files.lines method.
+         */
     }
 }
