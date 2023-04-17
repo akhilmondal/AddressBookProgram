@@ -227,11 +227,11 @@ public class AddressBook {
     }
     // Here Adding contact details to the text file by using IO stream.
     public static void addContactToFile(ArrayList<Contact> list) throws IOException {  //This method will right the data to a file.
-        FileWriter filewriter = new FileWriter("/home/akhil/IdeaProjects/AddressBookSystem/AddressBookFile/AddressBook.txt");
+        FileWriter fileWriter = new FileWriter("/home/akhil/IdeaProjects/AddressBookSystem/AddressBookFile/AddressBook.txt");
         for (Contact data : list) {
-            filewriter.write(data + System.lineSeparator());  //This line separator method will separate each entry line by line.
+            fileWriter.write(data + System.lineSeparator());  //This line separator method will separate each entry line by line.
         }
-        filewriter.close();
+        fileWriter.close();
     }
     public static void displayRecordsFromTextFile() throws IOException {  //This method will read data from the file who's path is given.
         Files.lines(new File("/home/akhil/IdeaProjects/AddressBookSystem/AddressBookFile/AddressBook.txt").toPath()).forEach(System.out::println);

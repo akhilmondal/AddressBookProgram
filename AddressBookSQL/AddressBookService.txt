@@ -1,0 +1,215 @@
+-------------------------------------AddressBookService-----------------------------------------------
+
+UC1-CREATE A ADDRESSBOOK DATABASE
+---------------------------------
+
+mysql> create database addressbookservice;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++------------------------------+
+| Database                     |
++------------------------------+
+| addressbookservice           |
+| demo                         |
+| employeeWageManagementSystem |
+| information_schema           |
+| mysql                        |
+| payroll_service              |
+| performance_schema           |
+| sys                          |
++------------------------------+
+8 rows in set (0.00 sec)
+
+
+UC2-CREATE A TABLE AND ADD FIELDS TO THE TABLE
+----------------------------------------------
+
+mysql> create table addressBook(id INT NOT NULL AUTO_INCREMENT,first_name VARCHAR(20),last_name VARCHAR(20),address VARCHAR(40),city VARCHAR(15),state VARCHAR(15),zip INT(6),phone INT(15),email VARCHAR(30), PRIMARY KEY(ID));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> DESCRIBE addressBook;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(20) | YES  |     | NULL    |                |
+| last_name  | varchar(20) | YES  |     | NULL    |                |
+| address    | varchar(40) | YES  |     | NULL    |                |
+| city       | varchar(15) | YES  |     | NULL    |                |
+| state      | varchar(15) | YES  |     | NULL    |                |
+| zip        | int         | YES  |     | NULL    |                |
+| phone      | int         | YES  |     | NULL    |                |
+| email      | varchar(30) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+
+UC3-ADD NEW CONTACT TO THE TABLE
+--------------------------------
+
+mysql> INSERT INTO addressBook(first_name,last_name,address,city,state,zip,phone,email) VALUES('AKHIL','MONDAL','KALIMELA,ODISHA','MALKANGIRI','ODISHA',764086,934845,'akhildr@dhinhakpooja.com'),('ABHIJEET','MONDAL','PODIA,ODISHA','MALKANGIRI','ODISHA',764098,284453,'abhijeetmondal@nasa.com');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+|  1 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com |
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+2 rows in set (0.00 sec)
+
+
+UC4-EDIT CONTACT BY FIRST_NAME
+------------------------------
+
+mysql> UPDATE addressBook SET city = 'KALIMELA', state = 'KARNATAKA', zip = 467365 WHERE first_name = 'AKHIL';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+-----------------+------------+-----------+--------+--------+--------------------------+
+| id | first_name | last_name | address         | city       | state     | zip    | phone  | email                    |
++----+------------+-----------+-----------------+------------+-----------+--------+--------+--------------------------+
+|  1 | AKHIL      | MONDAL    | KALIMELA,ODISHA | KALIMELA   | KARNATAKA | 467365 | 934845 | akhildr@dhinhakpooja.com |
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA    | 764098 | 284453 | abhijeetmondal@nasa.com  |
++----+------------+-----------+-----------------+------------+-----------+--------+--------+--------------------------+
+2 rows in set (0.00 sec)
+
+
+UC5-DELETE DATA FROM THE TABLE BY USING NAME
+--------------------------------------------
+
+mysql> DELETE FROM addressBook WHERE first_name = 'AKHIL';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+--------------+------------+--------+--------+--------+-------------------------+
+| id | first_name | last_name | address      | city       | state  | zip    | phone  | email                   |
++----+------------+-----------+--------------+------------+--------+--------+--------+-------------------------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com |
++----+------------+-----------+--------------+------------+--------+--------+--------+-------------------------+
+1 row in set (0.00 sec)
+
+
+UC6-RETRIVE DATA ACCORDING TO A CITY
+------------------------------------
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
+|  3 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com |
+|  4 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
+|  5 | APPU       | MONDAL    | KALIMELA,ODISHA | KALIMELA   | ODISHA | 764086 | 934845 | akhildr@pooja.com        |
+|  6 | BANKIM     | MONDAL    | PODIA,ODISHA    | TELENGANA  | ODISHA | 764098 | 284453 | bankimmondal@nasa.com    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM addressBook WHERE city = 'MALKANGIRI';
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
+|  3 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com |
+|  4 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+3 rows in set (0.00 sec)
+
+
+UC7-COUNT SIZE OF THE TABLE ACCORDING TO CITY
+---------------------------------------------
+
+mysql> SELECT COUNT(*) FROM addressBook WHERE city = 'MALKANGIRI';
++----------+
+| COUNT(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.01 sec)
+
+
+UC8-RETRIVE DATA IN SORTED FIRST NAME BY CITY NAME
+--------------------------------------------------
+
+mysql> SELECT * FROM addressBook WHERE city = 'MALKANGIRI' ORDER BY first_name ASC;
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
+|  4 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  |
+|  3 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+
+3 rows in set (0.01 sec)
+
+
+UC9-ADD TYPE TO THE ADDRESSBOOK
+-------------------------------
+
+mysql> ALTER TABLE addressBook ADD type VARCHAR(20) AFTER email;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC addressBook
+    -> ;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(20) | YES  |     | NULL    |                |
+| last_name  | varchar(20) | YES  |     | NULL    |                |
+| address    | varchar(40) | YES  |     | NULL    |                |
+| city       | varchar(15) | YES  |     | NULL    |                |
+| state      | varchar(15) | YES  |     | NULL    |                |
+| zip        | int         | YES  |     | NULL    |                |
+| phone      | int         | YES  |     | NULL    |                |
+| email      | varchar(30) | YES  |     | NULL    |                |
+| type       | varchar(20) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    | type |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  | NULL |
+|  3 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com | NULL |
+|  4 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  | NULL |
+|  5 | APPU       | MONDAL    | KALIMELA,ODISHA | KALIMELA   | ODISHA | 764086 | 934845 | akhildr@pooja.com        | NULL |
+|  6 | BANKIM     | MONDAL    | PODIA,ODISHA    | TELENGANA  | ODISHA | 764098 | 284453 | bankimmondal@nasa.com    | NULL |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE addressBook SET type = 'FRIENDS' WHERE first_name = 'APPU' OR first_name = 'BANKIM';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM addressBook;
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+---------+
+| id | first_name | last_name | address         | city       | state  | zip    | phone  | email                    | type    |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+---------+
+|  2 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  | NULL    |
+|  3 | AKHIL      | MONDAL    | KALIMELA,ODISHA | MALKANGIRI | ODISHA | 764086 | 934845 | akhildr@dhinhakpooja.com | NULL    |
+|  4 | ABHIJEET   | MONDAL    | PODIA,ODISHA    | MALKANGIRI | ODISHA | 764098 | 284453 | abhijeetmondal@nasa.com  | NULL    |
+|  5 | APPU       | MONDAL    | KALIMELA,ODISHA | KALIMELA   | ODISHA | 764086 | 934845 | akhildr@pooja.com        | FRIENDS |
+|  6 | BANKIM     | MONDAL    | PODIA,ODISHA    | TELENGANA  | ODISHA | 764098 | 284453 | bankimmondal@nasa.com    | FRIENDS |
++----+------------+-----------+-----------------+------------+--------+--------+--------+--------------------------+---------+
+5 rows in set (0.00 sec)
+
+
+UC10-GET PHONE NUMBER BY TYPE
+-----------------------------
+
+mysql> SELECT phone FROM addressBook WHERE type = 'FRIENDS';
++--------+
+| phone  |
++--------+
+| 934845 |
+| 284453 |
++--------+
+2 rows in set (0.00 sec)
+
+
